@@ -1,0 +1,10 @@
+<h1><%= @user.name%></h1>
+<ul>
+	<%@user.capsites.each do |c|%>
+	<li><%= c.name %>
+		<%= c.address %>
+		<%= c.rating %>
+	</li>
+</ul>
+
+<%end%>
