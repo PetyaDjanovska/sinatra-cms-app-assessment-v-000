@@ -1,3 +1,7 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <form action="/campsites" method="post">
 	<p>
 		<label for "campsite[name]">Campsite name:</label>

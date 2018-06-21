@@ -15,7 +15,7 @@ class UsersController < ApplicationController
         session[:id] = user.id
         redirect '/users/home'
     else
-        redirect '/signup'
+        redirect '/'
     end
  end
  
@@ -30,22 +30,27 @@ class UsersController < ApplicationController
      session[:id] = @user.id
      redirect '/users/home'
    else
-     redirect '/signup'
+#      message "A user with that username alfready exists!"
+     redirect '/'
    end
  end
  
  get '/users/home' do
    if logged_in?
-    @user = current_user
-    erb :'/users/show'
-    else
-      redirect '/signup'
-    end
+     @user = current_user
+     erb :'/users/show'
+   else
+     redirect '/'
+   end
  end
  
  get '/users' do
-   @users = User.all
-   erb :'users/index'
+   if logged_in?
+     @users = User.all
+     erb :'users/index'
+   else
+     redirect '/'
+   end
  end
  
 end
