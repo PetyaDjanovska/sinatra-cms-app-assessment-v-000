@@ -3,7 +3,7 @@ class CampsitesController < ApplicationController
 
   get '/campsites' do
     @campsites = Campsite.all
-    if !session[:id].nil?
+    if logged_in?
       erb :'/campsites/index'
     else
       redirect :'/'
