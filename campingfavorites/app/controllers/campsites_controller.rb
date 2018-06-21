@@ -1,0 +1,26 @@
+class CampsitesController < ApplicationController
+  
+
+  get '/campsites' do
+    @campsites = Campsite.all
+  end
+  
+  post '/campsites' do
+    # create camp and set created_by to current_user.id
+  end
+
+  get '/campsites/new' do
+  # check if logged_in?
+    erb :'/campsites/new'
+  end
+    
+  get '/campsites/:id/edit' do
+  # check if created_by == curent_user.id
+    
+  end
+  
+  get '/campsites/:id' do
+#     add "delete" button
+# check if created_by == curent_user.id
+  end
+end
