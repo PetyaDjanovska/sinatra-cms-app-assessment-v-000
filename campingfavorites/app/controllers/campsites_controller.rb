@@ -25,7 +25,7 @@ class CampsitesController < ApplicationController
 
   get '/campsites/new' do
     if logged_in?
-      redirect '/campsites/new'
+      erb :'/campsites/new'
     else
        redirect '/'
     end
@@ -35,6 +35,7 @@ class CampsitesController < ApplicationController
     @campsite = Campsite.find(params[:id])
     erb :'/campsites/show'
   end
+  
   get '/campsites/:id/edit' do
   # check if created_by == curent_user.id
   # logged_in?

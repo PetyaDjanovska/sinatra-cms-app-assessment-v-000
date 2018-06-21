@@ -30,7 +30,6 @@ class UsersController < ApplicationController
      session[:id] = @user.id
      redirect '/users/home'
    else
-#      message "A user with that username alfready exists!"
      redirect '/'
    end
  end
