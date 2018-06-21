@@ -25,7 +25,7 @@ class CampsitesController < ApplicationController
 
   get '/campsites/new' do
     if logged_in?
-      erb :'/campsites/new'
+      redirect '/campsites/new'
     else
        redirect '/'
     end
