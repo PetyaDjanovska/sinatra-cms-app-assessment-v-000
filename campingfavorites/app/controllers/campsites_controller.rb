@@ -13,9 +13,10 @@ class CampsitesController < ApplicationController
   post '/campsites' do
     # create camp and set created_by to current_user.id
     @campsite = Campsite.new(params[:campsite])
+    @campsite.created_by = current_user.id
+    current_user.campsites << @campsite
     if @campsite.save
-      @campsite.created_by = session[:id]
-      current_user.campsites << @campsite
+       binding.pry
       redirect "/campsites/#{@campsite.id}"
     else
       flash[:message] = "A campsite with that name has already been added!"
@@ -37,13 +38,23 @@ class CampsitesController < ApplicationController
   end
   
   get '/campsites/:id/edit' do
-  # check if created_by == curent_user.id
-  # logged_in?
-    
+    @campsite = Campsite.find(params[:id])
+    binding.pry
+    if logged_in? && @campsite.created_by == current_user.id
+      erb :'/campsites/edit'
+    else
+      flash[:message] = "Not allowed to edit, sorry!"
+      redirect '/'
+    end
   end
   
-  get '/campsites/:id' do
-#     add "delete" button
-# check if created_by == curent_user.id
+  patch '/campsites/:id' do
+    @campsite = Campsite.find(params[:id])
+    if logged_in? && @campsite.created_by == current_user.id
+      @campsite.update
+    else
+      
+    end
   end
+  
 end
