@@ -5,26 +5,47 @@ class UsersController < ApplicationController
  end
  
  get '/login' do
-   TODO
+   erb :'/users/login'
+ end
+ 
+ post '/login' do
+   user = User.find_by(username: params[:user][:username])
+
+    if user && user.authenticate(params[:user][:password])
+        session[:id] = user.id
+        redirect '/users/home'
+    else
+        redirect '/signup'
+    end
+ end
+ 
+ get '/logout' do
+   session.clear
+   redirect '/'
  end
  
  post '/users' do
-   @user = User.find_or_create_by(username: params[:user][:username])
-   if @user
-     sessions[:id] = @user.id
-     redirect_to '/users/#{@user.id}'
+   @user = User.new(params[:user])
+   if @user.save
+     session[:id] = @user.id
+     redirect '/users/home'
    else
-     redirect_to '/users/signup'
+     redirect '/signup'
    end
  end
  
- get '/users' do
-   TODO
+ get '/users/home' do
+   if logged_in?
+    @user = current_user
+    erb :'/users/show'
+    else
+      redirect '/signup'
+    end
  end
  
- get '/users/:id' do
-   # check if user is logged in?
-   @user = User.find(params[:id])
-  erb :'/users/show'    
+ get '/users' do
+   @users = User.all
+   erb :'users/index'
  end
+ 
 end

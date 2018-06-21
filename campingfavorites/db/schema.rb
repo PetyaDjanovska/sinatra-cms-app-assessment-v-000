@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20180619200148) do
     t.string  "name"
     t.string  "address"
     t.integer "rating"
+    t.integer "created_by"
   end
 
   create_table "user_campsites", force: :cascade do |t|
