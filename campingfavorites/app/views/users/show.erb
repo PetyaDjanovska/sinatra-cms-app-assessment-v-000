@@ -1,16 +1,11 @@
 <h1>Hi, <%= @user.username%></h1>
-<ul>
-	TODO - Campsite display formatting!!!!
+<h2>You have added the following campsites:</h2>
 	<% if !@user.campsites.empty? %>
-	<h2>You have added the following campsites:</h2>
 		<%@user.campsites.each do |c|%>
-		<li><%= c.name %>
-			<%= c.address %>
-			<%= c.rating %>
-		</li>
+		<%= c.name %> - <a href='/campsites/<%=c.id%>'>see details</a></br>
 		<%end%>
 	<%end%>
-</ul>
+	
 </br>
 <p><a href="/campsites/new">Add a campsite</p>
 <p><a href="/campsites">See all campsites</p>

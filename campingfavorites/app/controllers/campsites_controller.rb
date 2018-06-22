@@ -6,7 +6,7 @@ class CampsitesController < ApplicationController
     if logged_in?
       erb :'/campsites/index'
     else
-      redirect :'/'
+      redirect '/'
     end
   end
   
@@ -14,13 +14,12 @@ class CampsitesController < ApplicationController
     # create camp and set created_by to current_user.id
     @campsite = Campsite.new(params[:campsite])
     @campsite.created_by = current_user.id
-    current_user.campsites << @campsite
     if @campsite.save
-       binding.pry
-      redirect "/campsites/#{@campsite.id}"
+      current_user.campsites << @campsite
+      redirect "/campsites"
     else
       flash[:message] = "A campsite with that name has already been added!"
-      redirect '/campsites/new'
+      erb :'/campsites/new'
     end
   end
 
@@ -39,7 +38,6 @@ class CampsitesController < ApplicationController
   
   get '/campsites/:id/edit' do
     @campsite = Campsite.find(params[:id])
-    binding.pry
     if logged_in? && @campsite.created_by == current_user.id
       erb :'/campsites/edit'
     else
@@ -48,12 +46,18 @@ class CampsitesController < ApplicationController
     end
   end
   
-  patch '/campsites/:id' do
+  post '/campsites/:id' do
     @campsite = Campsite.find(params[:id])
     if logged_in? && @campsite.created_by == current_user.id
-      @campsite.update
+      params[:campsite].each do |k,v|
+        if !v.empty?
+          @campsite.update_attributes(k => v)
+        end
+      end
+      @campsite.save
+      redirect '/users/home'
     else
-      
+      redirect '/'
     end
   end
   

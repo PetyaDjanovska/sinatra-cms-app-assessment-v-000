@@ -1,5 +1,10 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <% @campsites.each do |c|%>
 <!-- add delete edit/buttons if created_by == current_user -->
-	<h2><%= c.name %></h2>
-	<a href='/campsites/<%= c.id %>'>
+	<p>
+	<a href='/campsites/<%= c.id %>'><%= c.name %></a>
+	</p>
 <%end%>
