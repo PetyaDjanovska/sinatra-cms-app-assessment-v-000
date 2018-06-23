@@ -30,6 +30,7 @@ class UsersController < ApplicationController
      session[:id] = @user.id
      redirect '/users/home'
    else
+     flash[:message] = "A user with that name exists!"
      redirect '/'
    end
  end
