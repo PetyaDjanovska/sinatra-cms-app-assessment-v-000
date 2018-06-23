@@ -38,7 +38,6 @@ class UsersController < ApplicationController
  post '/users/home/add_to_fav' do
    @campsite = Campsite.find(params[:campsite_id])
    current_user.campsites << @campsite
-   binding.pry
    redirect '/users/home'
  end
  
