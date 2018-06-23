@@ -2,15 +2,13 @@ Campsite name: <h2><%= @campsite.name %></h2>
 Address: <h2><%= @campsite.address %></h2>
 Rating: <h2><%= @campsite.rating %></h2>
 
-<!-- <form method="post" action="/campsites/<%= @campsite.id %>>
-  <input id="hidden" type="hidden" name="_method" value="patch">
-  <input type="submit" value="EDIT">
-</form> -->
-<p>
-<a href='/campsites/<%= @campsite.id %>/edit'><input type="submit" value="EDIT"></a>
-</p>
-<form method="post" action="/campsites/<%= @campsite.id %>/delete">
-  <input id="hidden" type="hidden" name="_method" value="delete">
-  <input type="submit" value="DELETE">
-</form>
+<% if @campsite.created_by == current_user.id %>
+	<p>
+	<a href='/campsites/<%= @campsite.id %>/edit'><input type="submit" value="EDIT"></a>
+	</p>
+	<form method="post" action="/campsites/<%= @campsite.id %>/delete">
+	  <input id="hidden" type="hidden" name="_method" value="delete">
+	  <input type="submit" value="DELETE">
+	</form>
+<% end %>
 
