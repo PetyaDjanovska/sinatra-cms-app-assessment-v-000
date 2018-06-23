@@ -42,7 +42,7 @@ class CampsitesController < ApplicationController
       erb :'/campsites/edit'
     else
       flash[:message] = "Not allowed to edit, sorry!"
-      redirect '/'
+      redirect '/users/home'
     end
   end
   
@@ -57,7 +57,18 @@ class CampsitesController < ApplicationController
       @campsite.save
       redirect '/users/home'
     else
-      redirect '/'
+      redirect '/users/home'
+    end
+  end
+  
+  post '/campsites/:id/delete' do
+      @campsite = Campsite.find(params[:id])
+    if logged_in? && @campsite.created_by == current_user.id
+      @campsite.destroy
+      redirect '/campsites'
+    else
+      flash[:message] = "Not allowed to delete, sorry!"
+      redirect '/users/home'
     end
   end
   
