@@ -1,3 +1,8 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
+
 <h1>Hi, <%= @user.username%></h1>
 <h2>You have added the following campsites:</h2>
 	<% if !@user.campsites.empty? %>
@@ -10,5 +15,6 @@
 <p><a href="/campsites/new">Add a campsite</p>
 <p><a href="/campsites">See all campsites</p>
 
-
-<a href="/logout">LOG OUT</a>
+<form action="/logout">
+    <input type="submit" value="LOG OUT" />
+</form>
