@@ -3,7 +3,17 @@
 <% end %>
 
 <% @campsites.each do |c|%>
-	<p>
+ <p>
 	<a href='/campsites/<%= c.id %>'><%= c.name %></a>
-	</p>
+	<% if c.id != current_user.id%>
+		<form action='/users/home/add_to_fav' method='post'>
+			<input type="hidden" value="<%= c.id %>" name="campsite_id">
+    		<input type="submit" value="Add to my favorites" />
+		</form>
+	<% end %>
+</p>
 <%end%>
+
+<form action='/users/home'>
+    <input type="submit" value="Go home" />
+</form>

@@ -1,3 +1,8 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
+
 <div class="container">
   <div class="col-md-8 col-md-offset-2">
     <h2>Welcome to Campsite Favorites App</h2>
@@ -9,7 +14,6 @@
       or
       <a href='/login'>LOG IN</a>
     </div>
-
    
 
   </div>
